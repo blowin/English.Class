@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\English.Class.Domain\English.Class.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Database\Configuration\" />
+    <Folder Include="Database\Groups\" />
+    <Folder Include="Database\Homeworks\" />
+    <Folder Include="Database\Students\" />
+    <Folder Include="Database\Schedules\" />
+  </ItemGroup>
+
+</Project>
