@@ -2,11 +2,10 @@
 using System.Net;
 using English.Class.FastEndpoint.Extension;
 using Microsoft.AspNetCore.Http;
-using YamlDotNet.Core.Tokens;
 
 namespace English.Class.FastEndpoint.Groups;
 
-public class GroupNamePostEndpoint : Endpoint<GroupNamePostEndpoint.Request, Guid>
+public class GroupCreatePostEndpoint : Endpoint<GroupCreatePostEndpoint.Request, Guid>
 {
     public override void Configure()
     {

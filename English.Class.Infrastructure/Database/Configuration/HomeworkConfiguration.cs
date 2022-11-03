@@ -10,8 +10,5 @@ public class HomeworkConfiguration : ConfigurationBase<Homework>
         builder.Property(e => e.Title).HasMaxLength(128).IsRequired();
         builder.Property(e => e.Description).HasMaxLength(512);
         builder.Property(e => e.HandingDate).IsRequired();
-        builder.HasOne(e => e.Group)
-            .WithOne()
-            .HasForeignKey<Homework>(e => e.GroupId);
     }
 }

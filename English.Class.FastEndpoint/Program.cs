@@ -1,7 +1,9 @@
 ﻿using English.Class.DependencyInjection;
+using English.Class.FastEndpoint;
 using English.Class.Infrastructure.Database;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +18,10 @@ builder.Services.AddSwaggerDoc(settings =>
     settings.Version = "v1";
 });
 builder.Services.AddAppServices(optionsBuilder => optionsBuilder.UseSqlite("Data Source=app.db"));
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new DateOnlyConverter());
+});
 
 var app = builder.Build();
 app.UseAuthorization();

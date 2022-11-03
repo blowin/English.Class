@@ -1,7 +1,7 @@
 ﻿using English.Class.Domain.Core;
 using FluentValidation;
 
-namespace English.Class.FastEndpoint;
+namespace English.Class.FastEndpoint.Requests;
 
 public class PageRequest
 {

@@ -25,7 +25,7 @@ public class GroupRenamePutEndpoint : Endpoint<GroupRenamePutEndpoint.Request, G
             AddError(e => e.Id, $"Not found group with id='{req.Id}'");
 
         ThrowIfAnyErrors();
-        await SendAsync(req, HttpStatusCode.Created.AsInt(), cancellation: token);
+        await SendAsync(req, cancellation: token);
     }
 
     public class Request

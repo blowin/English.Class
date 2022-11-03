@@ -4,7 +4,7 @@ using X.PagedList;
 
 namespace English.Class.Infrastructure.Database.Groups;
 
-public class GroupRepository : IGroupRepository
+public sealed class GroupRepository : IGroupRepository
 {
     private readonly AppDbContext _db;
 
@@ -53,5 +53,38 @@ public class GroupRepository : IGroupRepository
         _db.Group.Update(updateItem);
         await _db.SaveChangesAsync(token);
         return updateItem;
+    }
+
+    public Task<GroupDetail> GetDetailAsync(Guid id, CancellationToken token)
+    {
+        return _db.Group
+            .Include(e => e.Students)
+            .Include(e => e.Schedules)
+            .Include(e => e.Homeworks)
+            .AsSplitQuery()
+            .Select(e => new GroupDetail
+            {
+                Id = e.Id,
+                Name = e.Name,
+                Homeworks = e.Homeworks == null ? null : e.Homeworks.Select(h => new GroupDetail.Homework
+                {
+                    Id = h.Id,
+                    Title = h.Title,
+                    Description = h.Description,
+                    HandingDate = h.HandingDate
+                }).ToList(),
+                Schedules = e.Schedules == null ? null : e.Schedules.Select(h => new GroupDetail.Schedule
+                {
+                    Id = h.Id,
+                    Time = h.Time
+                }).ToList(),
+                Students = e.Students == null ? null : e.Students.Select(h => new GroupDetail.Student
+                {
+                    Id = h.Id,
+                    FirstName = h.FirstName,
+                    LastName = h.LastName
+                }).ToList()
+            })
+            .FirstAsync(e => e.Id == id);
     }
 }

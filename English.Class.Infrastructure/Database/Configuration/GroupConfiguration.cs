@@ -16,5 +16,9 @@ public class GroupConfiguration : ConfigurationBase<Group>
         builder.HasMany(e => e.Students)
             .WithOne(e => e.Group)
             .HasForeignKey(e => e.GroupId);
+
+        builder.HasMany(e => e.Homeworks)
+            .WithOne(e => e.Group)
+            .HasForeignKey(e => e.GroupId);
     }
 }

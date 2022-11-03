@@ -1,13 +1,13 @@
 ﻿using English.Class.Domain.Groups;
 using System.Net;
 using English.Class.FastEndpoint.Extension;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Group = English.Class.Domain.Groups.Group;
+using English.Class.FastEndpoint.Requests;
 
 namespace English.Class.FastEndpoint.Groups;
 
-public class GroupNameDeleteEndpoint : Endpoint<GroupNameDeleteEndpoint.Request, Group?>
+public class GroupDeleteEndpoint : Endpoint<RequestId, GroupDeleteEndpoint.EResponse>
 {
     public override void Configure()
     {
@@ -19,7 +19,7 @@ public class GroupNameDeleteEndpoint : Endpoint<GroupNameDeleteEndpoint.Request,
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(Request req, CancellationToken token)
+    public override async Task HandleAsync(RequestId req, CancellationToken token)
     {
         var rep = Resolve<IGroupRepository>();
         var response = await rep.DeleteAsync(req.Id, token);
@@ -28,11 +28,18 @@ public class GroupNameDeleteEndpoint : Endpoint<GroupNameDeleteEndpoint.Request,
 
         ThrowIfAnyErrors();
 
-        await SendAsync(response, cancellation: token);
+        await SendAsync(new EResponse(response!), cancellation: token);
     }
 
-    public class Request
+    public class EResponse
     {
         public Guid Id { get; set; }
+        public string? Name { get; set; }
+
+        public EResponse(Group group)
+        {
+            Id = group.Id;
+            Name = group.Name;
+        }
     }
 }
