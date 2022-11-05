@@ -19,13 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extension\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ExceptionHandling\ExceptionHandler\" />
+    <Folder Include="Responses\" />
   </ItemGroup>
 
 </Project>

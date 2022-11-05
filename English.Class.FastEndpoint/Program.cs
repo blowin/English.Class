@@ -1,5 +1,7 @@
 ﻿using English.Class.DependencyInjection;
 using English.Class.FastEndpoint;
+using English.Class.FastEndpoint.ExceptionHandling;
+using English.Class.FastEndpoint.ExceptionHandling.ExceptionHandler;
 using English.Class.Infrastructure.Database;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -22,8 +24,14 @@ builder.Services.Configure<JsonOptions>(options =>
 {
     options.SerializerOptions.Converters.Add(new DateOnlyConverter());
 });
+builder.Services.Scan(e =>
+{
+    e.FromAssemblyOf<Program>()
+        .AddClasses(f => f.AssignableTo<IExceptionHandler>()).AsImplementedInterfaces().WithSingletonLifetime();
+});
 
 var app = builder.Build();
+app.UseAppExceptionHandler();
 app.UseAuthorization();
 app.UseFastEndpoints(c =>
 {
