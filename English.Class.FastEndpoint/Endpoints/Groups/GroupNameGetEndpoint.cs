@@ -2,7 +2,7 @@
 using English.Class.FastEndpoint.Requests;
 using X.PagedList;
 
-namespace English.Class.FastEndpoint.Groups;
+namespace English.Class.FastEndpoint.Endpoints.Groups;
 
 public class GroupNameGetEndpoint : Endpoint<PageRequest, IPagedList<GroupName>>
 {

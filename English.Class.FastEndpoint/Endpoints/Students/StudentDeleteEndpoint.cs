@@ -1,17 +1,16 @@
 ﻿using System.Net;
-using English.Class.Domain.Homeworks;
 using English.Class.Domain.Students;
 using English.Class.FastEndpoint.Extension;
 using English.Class.FastEndpoint.Requests;
 using Microsoft.AspNetCore.Http;
 
-namespace English.Class.FastEndpoint.Homeworks;
+namespace English.Class.FastEndpoint.Endpoints.Students;
 
-public class HomeworkDeleteEndpoint : Endpoint<RequestId, HomeworkDeleteEndpoint.EResponse>
+public class StudentDeleteEndpoint : Endpoint<RequestId, StudentDeleteEndpoint.EResponse>
 {
     public override void Configure()
     {
-        Delete("homework");
+        Delete("student");
         Description(b => b
             .Produces<Student>(HttpStatusCode.OK.AsInt())
             .ProducesProblem(HttpStatusCode.BadRequest.AsInt())
@@ -21,10 +20,10 @@ public class HomeworkDeleteEndpoint : Endpoint<RequestId, HomeworkDeleteEndpoint
 
     public override async Task HandleAsync(RequestId req, CancellationToken token)
     {
-        var rep = Resolve<IHomeworkRepository>();
+        var rep = Resolve<IStudentRepository>();
         var response = await rep.DeleteAsync(req.Id, token);
         if (response == null)
-            AddError(e => e.Id, $"Not found homework with id='{req.Id}'");
+            AddError(e => e.Id, $"Not found student with id='{req.Id}'");
 
         ThrowIfAnyErrors();
 
@@ -34,16 +33,14 @@ public class HomeworkDeleteEndpoint : Endpoint<RequestId, HomeworkDeleteEndpoint
     public class EResponse
     {
         public Guid Id { get; set; }
-        public DateOnly HandingDate { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-        public EResponse(Homework homework)
+        public EResponse(Student student)
         {
-            Id = homework.Id;
-            HandingDate = homework.HandingDate;
-            Title = homework.Title;
-            Description = homework.Description;
+            Id = student.Id;
+            FirstName = student.FirstName;
+            LastName = student.LastName;
         }
     }
 }

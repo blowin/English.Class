@@ -1,6 +1,6 @@
 ﻿using English.Class.Domain.Groups;
 
-namespace English.Class.FastEndpoint.Groups;
+namespace English.Class.FastEndpoint.Endpoints.Groups;
 
 public class GroupDetailGetEndpoint : Endpoint<GroupDetail>
 {

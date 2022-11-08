@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Net;
-using English.Class.FastEndpoint.Extension;
+﻿using System.Net;
+using English.Class.Domain.Schedules;
 using English.Class.Domain.Students;
+using English.Class.FastEndpoint.Extension;
 using English.Class.FastEndpoint.Requests;
+using Microsoft.AspNetCore.Http;
 
-namespace English.Class.FastEndpoint.Students;
+namespace English.Class.FastEndpoint.Endpoints.Schedule;
 
-public class StudentDeleteEndpoint : Endpoint<RequestId, StudentDeleteEndpoint.EResponse>
+public class ScheduleDeleteEndpoint : Endpoint<RequestId, ScheduleDeleteEndpoint.EResponse>
 {
     public override void Configure()
     {
-        Delete("student");
+        Delete("schedule");
         Description(b => b
             .Produces<Student>(HttpStatusCode.OK.AsInt())
             .ProducesProblem(HttpStatusCode.BadRequest.AsInt())
@@ -20,7 +21,7 @@ public class StudentDeleteEndpoint : Endpoint<RequestId, StudentDeleteEndpoint.E
 
     public override async Task HandleAsync(RequestId req, CancellationToken token)
     {
-        var rep = Resolve<IStudentRepository>();
+        var rep = Resolve<IScheduleRepository>();
         var response = await rep.DeleteAsync(req.Id, token);
         if (response == null)
             AddError(e => e.Id, $"Not found student with id='{req.Id}'");
@@ -33,14 +34,12 @@ public class StudentDeleteEndpoint : Endpoint<RequestId, StudentDeleteEndpoint.E
     public class EResponse
     {
         public Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public DateTime Time { get; set; }
 
-        public EResponse(Student student)
+        public EResponse(Domain.Schedules.Schedule student)
         {
             Id = student.Id;
-            FirstName = student.FirstName;
-            LastName = student.LastName;
+            Time = student.Time;
         }
     }
 }

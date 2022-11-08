@@ -1,14 +1,12 @@
 ﻿using System.Net;
-using System.Text.Json;
-using English.Class.FastEndpoint.ExceptionHandling.ExceptionHandler;
-using English.Class.FastEndpoint.Responses;
+using English.Class.FastEndpoint.Services.ExceptionHandling.ExceptionHandler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace English.Class.FastEndpoint.ExceptionHandling;
+namespace English.Class.FastEndpoint.Services.ExceptionHandling;
 
 // Disable BCC3001
 public static class ExceptionHandlerExtensions

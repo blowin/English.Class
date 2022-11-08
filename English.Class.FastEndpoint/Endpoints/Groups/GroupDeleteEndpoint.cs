@@ -1,19 +1,19 @@
 ﻿using System.Net;
-using English.Class.Domain.Schedules;
-using English.Class.Domain.Students;
+using English.Class.Domain.Groups;
 using English.Class.FastEndpoint.Extension;
 using English.Class.FastEndpoint.Requests;
 using Microsoft.AspNetCore.Http;
+using Group = English.Class.Domain.Groups.Group;
 
-namespace English.Class.FastEndpoint.Schedule;
+namespace English.Class.FastEndpoint.Endpoints.Groups;
 
-public class ScheduleDeleteEndpoint : Endpoint<RequestId, ScheduleDeleteEndpoint.EResponse>
+public class GroupDeleteEndpoint : Endpoint<RequestId, GroupDeleteEndpoint.EResponse>
 {
     public override void Configure()
     {
-        Delete("schedule");
+        Delete("group");
         Description(b => b
-            .Produces<Student>(HttpStatusCode.OK.AsInt())
+            .Produces<Group>(HttpStatusCode.OK.AsInt())
             .ProducesProblem(HttpStatusCode.BadRequest.AsInt())
         );
         AllowAnonymous();
@@ -21,10 +21,10 @@ public class ScheduleDeleteEndpoint : Endpoint<RequestId, ScheduleDeleteEndpoint
 
     public override async Task HandleAsync(RequestId req, CancellationToken token)
     {
-        var rep = Resolve<IScheduleRepository>();
+        var rep = Resolve<IGroupRepository>();
         var response = await rep.DeleteAsync(req.Id, token);
-        if (response == null)
-            AddError(e => e.Id, $"Not found student with id='{req.Id}'");
+        if(response == null)
+            AddError(e => e.Id, $"Not found group with id='{req.Id}'");
 
         ThrowIfAnyErrors();
 
@@ -34,12 +34,12 @@ public class ScheduleDeleteEndpoint : Endpoint<RequestId, ScheduleDeleteEndpoint
     public class EResponse
     {
         public Guid Id { get; set; }
-        public DateTime Time { get; set; }
+        public string? Name { get; set; }
 
-        public EResponse(Domain.Schedules.Schedule student)
+        public EResponse(Group group)
         {
-            Id = student.Id;
-            Time = student.Time;
+            Id = group.Id;
+            Name = group.Name;
         }
     }
 }

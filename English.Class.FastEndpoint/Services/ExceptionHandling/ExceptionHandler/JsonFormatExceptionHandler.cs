@@ -1,10 +1,10 @@
-﻿using English.Class.FastEndpoint.Responses;
+﻿using System.Net;
+using System.Text.Json;
+using English.Class.FastEndpoint.Responses;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using System.Net;
-using System.Text.Json;
 
-namespace English.Class.FastEndpoint.ExceptionHandling.ExceptionHandler;
+namespace English.Class.FastEndpoint.Services.ExceptionHandling.ExceptionHandler;
 
 public class JsonFormatExceptionHandler : IExceptionHandler
 {

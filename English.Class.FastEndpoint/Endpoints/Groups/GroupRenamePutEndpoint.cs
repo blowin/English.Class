@@ -3,7 +3,7 @@ using English.Class.Domain.Groups;
 using English.Class.FastEndpoint.Extension;
 using Microsoft.AspNetCore.Http;
 
-namespace English.Class.FastEndpoint.Groups;
+namespace English.Class.FastEndpoint.Endpoints.Groups;
 
 public class GroupRenamePutEndpoint : Endpoint<GroupRenamePutEndpoint.Request, GroupRenamePutEndpoint.Request>
 {

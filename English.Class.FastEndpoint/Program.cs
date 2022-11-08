@@ -1,7 +1,8 @@
 ﻿using English.Class.DependencyInjection;
 using English.Class.FastEndpoint;
-using English.Class.FastEndpoint.ExceptionHandling;
-using English.Class.FastEndpoint.ExceptionHandling.ExceptionHandler;
+using English.Class.FastEndpoint.Services;
+using English.Class.FastEndpoint.Services.ExceptionHandling;
+using English.Class.FastEndpoint.Services.ExceptionHandling.ExceptionHandler;
 using English.Class.Infrastructure.Database;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,7 @@ builder.Services.Scan(e =>
     e.FromAssemblyOf<Program>()
         .AddClasses(f => f.AssignableTo<IExceptionHandler>()).AsImplementedInterfaces().WithSingletonLifetime();
 });
+builder.Services.AddSingleton<HealthCheck>();
 
 var app = builder.Build();
 app.UseAppExceptionHandler();

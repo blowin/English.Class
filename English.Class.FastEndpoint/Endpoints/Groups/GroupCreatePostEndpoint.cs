@@ -1,10 +1,10 @@
-﻿using English.Class.Domain.Groups;
-using System.Net;
+﻿using System.Net;
+using English.Class.Domain.Groups;
 using English.Class.FastEndpoint.Extension;
-using Microsoft.AspNetCore.Http;
 using English.Class.FastEndpoint.Requests;
+using Microsoft.AspNetCore.Http;
 
-namespace English.Class.FastEndpoint.Groups;
+namespace English.Class.FastEndpoint.Endpoints.Groups;
 
 public class GroupCreatePostEndpoint : Endpoint<GroupCreatePostEndpoint.Request, RequestId>
 {
