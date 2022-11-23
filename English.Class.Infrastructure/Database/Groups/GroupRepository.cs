@@ -85,6 +85,6 @@ public sealed class GroupRepository : IGroupRepository
                     LastName = h.LastName
                 }).ToList()
             })
-            .FirstAsync(e => e.Id == id);
+            .FirstOrDefaultAsync(e => e.Id == id);
     }
 }
