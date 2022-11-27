@@ -1,12 +1,8 @@
-﻿using English.Class.DependencyInjection;
-using English.Class.FastEndpoint.Services;
+﻿using System.Text.Json.Serialization;
 using English.Class.FastEndpoint.Services.ExceptionHandling;
-using English.Class.FastEndpoint.Services.ExceptionHandling.ExceptionHandler;
 using English.Class.Infrastructure.Database;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http.Json;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace English.Class.FastEndpoint;
@@ -27,6 +23,7 @@ public class App
         _app.UseFastEndpoints(c =>
         {
             c.Endpoints.RoutePrefix = "api";
+            c.Serializer.Options.Converters.Add(new JsonStringEnumConverter());
         });
         _app.UseOpenApi();
         _app.UseSwaggerUi3(s => s.ConfigureDefaults());

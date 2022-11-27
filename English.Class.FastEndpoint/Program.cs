@@ -1,8 +1,4 @@
-﻿using English.Class.DependencyInjection;
-using English.Class.FastEndpoint;
-using English.Class.FastEndpoint.Services;
-using English.Class.FastEndpoint.Services.ExceptionHandling;
-using English.Class.FastEndpoint.Services.ExceptionHandling.ExceptionHandler;
+﻿using English.Class.FastEndpoint;
 using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder();

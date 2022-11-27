@@ -1,0 +1,57 @@
+Index: English.Class.Domain/English.Class.Domain.csproj
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><Project Sdk=\"Microsoft.NET.Sdk\">\r\n\r\n  <PropertyGroup>\r\n    <TargetFramework>net7.0</TargetFramework>\r\n    <ImplicitUsings>enable</ImplicitUsings>\r\n    <Nullable>enable</Nullable>\r\n  </PropertyGroup>\r\n\r\n  <ItemGroup>\r\n    <PackageReference Include=\"X.PagedList\" Version=\"8.4.3\" />\r\n  </ItemGroup>\r\n\r\n</Project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/English.Class.Domain/English.Class.Domain.csproj b/English.Class.Domain/English.Class.Domain.csproj
+--- a/English.Class.Domain/English.Class.Domain.csproj	(revision 9e50c0a1de42e9ec1e1052a826823ed72e240a7b)
++++ b/English.Class.Domain/English.Class.Domain.csproj	(date 1669215299833)
+@@ -10,4 +10,8 @@
+     <PackageReference Include="X.PagedList" Version="8.4.3" />
+   </ItemGroup>
+ 
++  <ItemGroup>
++    <Folder Include="Users\" />
++  </ItemGroup>
++
+ </Project>
+Index: English.Class.FastEndpoint/AppService.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using English.Class.DependencyInjection;\r\nusing English.Class.FastEndpoint.Services;\r\nusing English.Class.FastEndpoint.Services.ExceptionHandling.ExceptionHandler;\r\nusing FastEndpoints.Swagger;\r\nusing Microsoft.AspNetCore.Http.Json;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing Microsoft.Extensions.DependencyInjection;\r\n\r\nnamespace English.Class.FastEndpoint;\r\n\r\npublic class AppService\r\n{\r\n    private IServiceCollection _services;\r\n\r\n    public AppService(IServiceCollection services)\r\n    {\r\n        _services = services;\r\n    }\r\n\r\n    public void Configure()\r\n    {\r\n        _services.AddFastEndpoints(e =>\r\n        {\r\n            e.IncludeAbstractValidators = true;\r\n        });\r\n        _services.AddSwaggerDoc(settings =>\r\n        {\r\n            settings.Title = \"English\";\r\n            settings.Version = \"v1\";\r\n        });\r\n        _services.AddAppServices(optionsBuilder => optionsBuilder.UseSqlite(\"Data Source=app.db\"));\r\n        _services.Configure<JsonOptions>(options =>\r\n        {\r\n            //options.SerializerOptions.Converters.Add(new DateOnlyConverter());\r\n        });\r\n        _services.Scan(e =>\r\n        {\r\n            e.FromAssemblyOf<Program>()\r\n                .AddClasses(f => f.AssignableTo<IExceptionHandler>()).AsImplementedInterfaces().WithSingletonLifetime();\r\n        });\r\n        _services.AddSingleton<HealthCheck>();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/English.Class.FastEndpoint/AppService.cs b/English.Class.FastEndpoint/AppService.cs
+--- a/English.Class.FastEndpoint/AppService.cs	(revision 9e50c0a1de42e9ec1e1052a826823ed72e240a7b)
++++ b/English.Class.FastEndpoint/AppService.cs	(date 1669215329615)
+@@ -29,10 +29,6 @@
+             settings.Version = "v1";
+         });
+         _services.AddAppServices(optionsBuilder => optionsBuilder.UseSqlite("Data Source=app.db"));
+-        _services.Configure<JsonOptions>(options =>
+-        {
+-            //options.SerializerOptions.Converters.Add(new DateOnlyConverter());
+-        });
+         _services.Scan(e =>
+         {
+             e.FromAssemblyOf<Program>()
+Index: global.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/global.json b/global.json
+new file mode 100644
+--- /dev/null	(date 1669616317814)
++++ b/global.json	(date 1669616317814)
+@@ -0,0 +1,6 @@
++{
++  "sdk": {
++    "rollForward": "latestMajor",
++    "allowPrerelease": true
++  }
++}
+\ No newline at end of file

@@ -1,5 +1,4 @@
 ﻿using English.Class.Domain.Homeworks;
-using English.Class.Domain.Students;
 using Microsoft.EntityFrameworkCore;
 
 namespace English.Class.Infrastructure.Database.Homeworks;

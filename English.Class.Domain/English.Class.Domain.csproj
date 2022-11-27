@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="CSharpFunctionalExtensions" Version="2.37.0" />
     <PackageReference Include="X.PagedList" Version="8.4.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Users\" />
   </ItemGroup>
 
 </Project>

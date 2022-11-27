@@ -12,8 +12,12 @@ namespace English.Class.DependencyInjection
             self.AddDbContextPool<AppDbContext>(optionsAction);
             self.Scan(selector =>
             {
-                selector.FromAssemblyOf<AppDbContext>()
-                    .AddClasses(filter => filter.AssignableTo<IRepository>()).AsImplementedInterfaces();
+                selector.FromAssemblies(typeof(AppDbContext).Assembly, typeof(Entity).Assembly)
+                    .AddClasses(filter => filter.AssignableTo<IRepository>()).AsImplementedInterfaces()
+                    .AddClasses(filter => filter.AssignableTo<ITransientService>()).AsSelfWithInterfaces().WithTransientLifetime()
+                    .AddClasses(filter => filter.AssignableTo<IScopedService>()).AsSelfWithInterfaces().WithScopedLifetime()
+                    .AddClasses(filter => filter.AssignableTo<ISingletonService>()).AsSelfWithInterfaces().WithSingletonLifetime()
+                    ;
             });
             return self;
         }

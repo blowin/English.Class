@@ -2,6 +2,7 @@
 using English.Class.Domain.Homeworks;
 using English.Class.Domain.Schedules;
 using English.Class.Domain.Students;
+using English.Class.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace English.Class.Infrastructure.Database
@@ -12,6 +13,9 @@ namespace English.Class.Infrastructure.Database
         public DbSet<Homework> Homework { get; set; } = null!;
         public DbSet<Schedule> Schedule { get; set; } = null!;
         public DbSet<Student> Student { get; set; } = null!;
+        public DbSet<User> User { get; set; } = null!;
+        
+        public DbSet<RefreshToken> RefreshToken { get; set; } = null!;
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
