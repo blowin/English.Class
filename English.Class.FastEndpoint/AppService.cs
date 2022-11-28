@@ -29,10 +29,6 @@ public class AppService
             settings.Version = "v1";
         });
         _services.AddAppServices(optionsBuilder => optionsBuilder.UseSqlite("Data Source=app.db"));
-        _services.Configure<JsonOptions>(options =>
-        {
-            //options.SerializerOptions.Converters.Add(new DateOnlyConverter());
-        });
         _services.Scan(e =>
         {
             e.FromAssemblyOf<Program>()
